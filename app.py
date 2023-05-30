@@ -1,8 +1,9 @@
 import datetime
-from flask import Flask, render_template,request
+from flask import Flask, render_template,request, jsonify
 from pymongo import MongoClient
 import os
 from dotenv import load_dotenv
+import json
 
 load_dotenv()
 
@@ -29,4 +30,13 @@ def create_app():
         ]
 
         return render_template('index.html',entries = entries_with_date)
+    
+    @app.route("/addUser", methods = ["POST"])
+    def addUser():
+        print(request.data)
+        record = json.loads(request.data)
+        app.db.user.insert_one({"device_id": record['device_id'], "mobile_no": record["mobile_no"]})
+        print(record)
+        return jsonify(record)
+
     return app
