@@ -39,5 +39,13 @@ def create_app():
                                 , "country_code": record["country_code"], "app_id": record["app_id"]})
         print(record)
         return jsonify(record)
+    
+    @app.route("/validateOtp", methods = ["GET"])
+    def validateOtp():
+        print(request.args)
+        args = request.args
+        if (args.get('otp') == '1234'):
+            return "", 200
+        return "", 400
 
     return app
