@@ -35,7 +35,8 @@ def create_app():
     def addUser():
         print(request.data)
         record = json.loads(request.data)
-        app.db.user.insert_one({"device_id": record['device_id'], "mobile_no": record["mobile_no"]})
+        app.db.user.insert_one({"device_id": record['device_id'], "mobile_no": record["mobile_no"]
+                                , "country_code": record["country_code"], "app_id": record["app_id"]})
         print(record)
         return jsonify(record)
 
